@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'boltpe_theme.dart';
+import 'electricity_flow.dart';
 
 // ─── Entry Point ───────────────────────────────────────────────────────────────
 void main() {
@@ -520,7 +521,14 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
 
   Widget _buildBillTile(_BillItem item) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (item.label == 'Electricity') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ElectricityFlow()),
+          );
+        }
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
