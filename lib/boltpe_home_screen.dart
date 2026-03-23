@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'boltpe_theme.dart';
 import 'electricity_flow.dart';
+import 'bank_transfer_flow.dart';
 
 // ─── Entry Point ───────────────────────────────────────────────────────────────
 void main() {
@@ -386,7 +387,14 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
 
   Widget _buildQuickActionTile(_QuickAction action) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (action.label == 'Bank') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const BankTransferFlow()),
+          );
+        }
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
