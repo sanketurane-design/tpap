@@ -757,7 +757,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       borderRadius: BorderRadius.circular(BoltPeRadii.sm),
                     ),
                     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      const Icon(Icons.steering_wheel_outlined,
+                      const Icon(Icons.drive_eta_rounded,
                           size: 16, color: BoltPeColors.surfaceTextSecondary),
                       const SizedBox(width: BoltPeSpacing.xs),
                       Text('Driver', style: BoltPeTypography.bodySm.copyWith(
