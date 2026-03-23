@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'boltpe_theme.dart';
 import 'electricity_flow.dart';
 import 'bank_transfer_flow.dart';
+import 'bus_booking_flow.dart';
 
 // ─── Entry Point ───────────────────────────────────────────────────────────────
 void main() {
@@ -65,11 +66,9 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
   Widget _buildTopBar() {
     return Container(
       color: BoltPeColors.surfaceBgPrimary,
-      padding: const EdgeInsets.fromLTRB(
-        BoltPeSpacing.pageX,
-        BoltPeSpacing.sm,
-        BoltPeSpacing.pageX,
-        BoltPeSpacing.md,
+      padding: const EdgeInsets.symmetric(
+        horizontal: BoltPeSpacing.pageX,
+        vertical: BoltPeSpacing.md,
       ),
       child: Row(
         children: [
@@ -240,22 +239,25 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'UPI ID',
-                            style: BoltPeTypography.caption.copyWith(
-                              color: BoltPeColors.white.withValues(alpha: 0.45),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'UPI ID',
+                              style: BoltPeTypography.caption.copyWith(
+                                color: BoltPeColors.white.withValues(alpha: 0.45),
+                              ),
                             ),
-                          ),
-                          Text(
-                            'sanket@boltpe',
-                            style: BoltPeTypography.labelLg.copyWith(
-                              color: BoltPeColors.white.withValues(alpha: 0.9),
+                            Text(
+                              'sanket@boltpe',
+                              style: BoltPeTypography.labelLg.copyWith(
+                                color: BoltPeColors.white.withValues(alpha: 0.9),
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -363,8 +365,8 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
           // Recent contacts
           Text(
             'Recent',
-            style: BoltPeTypography.labelLg.copyWith(
-              color: BoltPeColors.surfaceTextSecondary,
+            style: BoltPeTypography.headingSm.copyWith(
+              color: BoltPeColors.surfaceTextPrimary,
             ),
           ),
           const SizedBox(height: BoltPeSpacing.sm),
@@ -556,6 +558,8 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
               color: BoltPeColors.surfaceTextSecondary,
             ),
             textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -582,7 +586,7 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
                   subtitle: 'Book tickets',
                   icon: Icons.directions_bus_rounded,
                   gradientColors: const [Color(0xFF0A3D62), Color(0xFF1E6EA6)],
-                  height: 200,
+                  height: 224,
                 ),
               ),
               const SizedBox(width: BoltPeSpacing.sm),
@@ -599,7 +603,7 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
                         BoltPeColors.primary700,
                         BoltPeColors.primary500,
                       ],
-                      height: 94,
+                      height: 108,
                     ),
                     const SizedBox(height: BoltPeSpacing.sm),
                     _BentoCard(
@@ -610,7 +614,7 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
                         Color(0xFF3B0070),
                         BoltPeColors.accent600,
                       ],
-                      height: 94,
+                      height: 108,
                     ),
                   ],
                 ),
@@ -665,7 +669,7 @@ class _BoltPeHomeScreenState extends State<BoltPeHomeScreen> {
                   height: 52,
                   decoration: BoxDecoration(
                     color: BoltPeColors.primary500,
-                    borderRadius: BorderRadius.circular(BoltPeRadii.lg),
+                    shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
                         color: BoltPeColors.primary500.withValues(alpha: 0.45),
@@ -846,7 +850,12 @@ class _BentoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (title == 'Bus') {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (_) => const BusBookingFlow()));
+        }
+      },
       child: Container(
         height: height,
         decoration: BoxDecoration(
@@ -925,26 +934,31 @@ class _NavTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: isSelected
-                ? BoltPeColors.navigationFgActive
-                : BoltPeColors.navigationFgInactive,
-            size: 24,
-          ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: BoltPeTypography.labelSm.copyWith(
+      child: SizedBox(
+        width: 56,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
               color: isSelected
                   ? BoltPeColors.navigationFgActive
                   : BoltPeColors.navigationFgInactive,
+              size: 24,
             ),
-          ),
-        ],
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: BoltPeTypography.labelSm.copyWith(
+                color: isSelected
+                    ? BoltPeColors.navigationFgActive
+                    : BoltPeColors.navigationFgInactive,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
